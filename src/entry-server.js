@@ -45,6 +45,7 @@ export default context => {
         // store to pick-up the server-side state without having to duplicate
         // the initial data fetching on the client.
         context.state = store.state
+        console.log('server-render')
         resolve(app)
       }).catch(reject)
     }, reject)

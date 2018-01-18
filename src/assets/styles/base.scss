@@ -1,0 +1,98 @@
+*, *:before, *:after { 
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent; /*消除ios下可点击元素点击时出现的背景色*/
+}
+
+/* 重设 HTML5 标签, IE 需要在 js 中 createElement(TAG) */
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
+    display:block;
+}
+
+ul, ol {
+    list-style: none;
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+/* 去掉各Table  cell 的边距并让其边重合 */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+/* IE bug fixed: th 不继承 text-align*/
+th {
+    text-align:inherit;
+    font-weight:bold;
+}
+
+input, button, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    outline: 0 none;
+}
+
+input, textarea {
+    -webkit-appearance: none; /*清除ios下输入框的阴影*/
+}
+
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* 去除默认边框 */
+fieldset,img {
+    border: 0;
+}
+
+/* HTML5 媒体文件跟 img 保持一致 */
+audio,canvas,video {
+    display: inline-block;*display: inline;*zoom: 1;
+}
+
+/* ie6 7 8(q) bug 显示为行内表现 */
+iframe {
+    display:block;
+}
+
+/* 统一上标和下标 */
+sub, sup {
+    position: relative;
+    vertical-align: baseline;
+    font-size: 75%; line-height: 0;
+}
+sup { top: -0.5em; }
+sub { bottom: -0.25em; }
+
+/* 清理浮动 */
+.clearfix {
+    display: block;
+    content: '';
+    clear: both;
+    zoom:1; /* for IE6 IE7 */
+}
+
+.user-select-none {
+    -webkit-user-select: none; /*禁止用户选中内容*/
+}
+.input-style-none {
+    -webkit-appearance: none; /*消除输入框和按钮的原生外观*/
+}
+.touch-callout-none {
+    -webkit-touch-callout: none; /*禁止长按弹出菜单*/
+}
+
+.flex {
+    @include flex();
+}
+
+.text-overflow {
+    @include text-overflow();
+}
+
+body {
+    font-size: 14px;
+}

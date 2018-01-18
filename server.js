@@ -7,6 +7,8 @@ const compression = require('compression')
 const microcache = require('route-cache')
 const resolve = file => path.resolve(__dirname, file)
 const { createBundleRenderer } = require('vue-server-renderer')
+const proxyMiddleware = require('http-proxy-middleware')
+const config = require('./config')
 
 const isProd = process.env.NODE_ENV === 'production'
 const useMicroCache = process.env.MICRO_CACHE !== 'false'
@@ -78,6 +80,17 @@ app.use('/service-worker.js', serve('./dist/service-worker.js'))
 // https://www.nginx.com/blog/benefits-of-microcaching-nginx/
 app.use(microcache.cacheSeconds(1, req => useMicroCache && req.originalUrl))
 
+
+// proxy api requests
+Object.keys(config.proxyTable).forEach(function (context) {
+  var options = config.proxyTable[context]
+  if (typeof options === 'string') {
+    options = { target: options }
+  }
+  app.use(proxyMiddleware(options.filter || context, options))
+})
+
+
 function render (req, res) {
   const s = Date.now()
 
@@ -116,7 +129,7 @@ app.get('*', isProd ? render : (req, res) => {
   readyPromise.then(() => render(req, res))
 })
 
-const port = process.env.PORT || 8080
+const port = process.env.PORT || config.port
 app.listen(port, () => {
   console.log(`server started at localhost:${port}`)
 })

@@ -1,28 +1,35 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import actions from './actions'
-import mutations from './mutations'
-import getters from './getters'
+import movieApi from '../api/movieApi'
+
+
+
+
 
 Vue.use(Vuex)
 
-export function createStore () {
-  return new Vuex.Store({
-    state: {
-      activeType: null,
-      itemsPerPage: 20,
-      items: {/* [id: number]: Item */},
-      users: {/* [id: string]: User */},
-      lists: {
-        top: [/* number */],
-        new: [],
-        show: [],
-        ask: [],
-        job: []
-      }
-    },
-    actions,
-    mutations,
-    getters
-  })
+
+export function createStore() {
+    return new Vuex.Store({
+        state: {
+            movingList: {}
+        },
+        actions: {
+            getMovingList ({commit, state}) {
+                return movieApi.getMovies({city: state.city}).then(res => {
+                    commit('movingList', { list: res.data })
+                }).catch(e=>console.log(e))
+            },
+        },
+        mutations: {
+            movingList(state, {list}) {
+                state.movingList = list
+            }
+        },
+        getters: {
+            movingList(state){
+                return state.movingList
+            }
+        }
+    })
 }

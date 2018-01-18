@@ -1,0 +1,34 @@
+$color-default: #666;
+
+$border-default: 1px solid #ccc;
+
+
+@mixin flex($dir:row, $jus:space-between, $ali:center) {
+    display: flex;
+    justify-content: $jus;
+    align-items: $ali;
+}
+
+@mixin text-overflow {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+@mixin clearfix-after {
+    &:after {
+        display: block;
+        content: '';
+        clear: both;
+    }
+}
+
+@mixin content {
+    .content {
+        @content;
+    }
+}
+
+@function get-rem-size($px){
+    @return $px/100 + 'rem';
+}
